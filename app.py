@@ -14,7 +14,6 @@ GITHUB_USER = "kakaomames"
 GITHUB_REPO = "database"
 
 # MIMEタイプからファイル拡張子をマッピングする辞書
-# 必要に応じてこのマッピングを拡張できます
 MIME_TO_EXT = {
     'application/json': 'json',
     'text/plain': 'txt',
@@ -44,20 +43,17 @@ def post_data():
         return jsonify({"error": "Missing project, user, or directory name."}), 400
 
     # データを取得し、ファイル形式を決定
-    if 'application/json' in content_type:
-        # JSONの場合、フォームのテキストエリアからデータを取得し、パースする
+    raw_data = request.form.get("data", "")
+    content_bytes = raw_data.encode('utf-8')
+    file_extension = MIME_TO_EXT.get(content_type, 'txt') # MIMEタイプが不明な場合はtxtに設定
+    
+    # JSONの場合、中身を再度パースしてフォーマット
+    if file_extension == 'json':
         try:
-            raw_data = request.form.get("data", "")
             data_content = json.loads(raw_data)
             content_bytes = json.dumps(data_content, ensure_ascii=False).encode('utf-8')
-            file_extension = MIME_TO_EXT.get(content_type, 'json')
         except json.JSONDecodeError:
             return jsonify({"error": "Invalid JSON format for 'data' field."}), 400
-    else:
-        # JSON以外の場合、フォームのテキストエリアから文字列データをそのまま取得
-        raw_data = request.form.get("data", "")
-        content_bytes = raw_data.encode('utf-8')
-        file_extension = MIME_TO_EXT.get(content_type, 'txt') # デフォルトはtxt
 
     encoded_content = base64.b64encode(content_bytes).decode('utf-8')
     file_path = f"data/{project_name}/{user_name}/{directory}.{file_extension}"
