@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>GitHub Data Uploader</title>
+    <title>GitHub File Uploader</title>
 </head>
 <body>
-    <h1>GitHub Data Uploader</h1>
-    <form action="/post-data" method="post">
+    <h1>GitHub File Uploader</h1>
+    <form action="/upload-file" method="post" enctype="multipart/form-data">
         <label for="project_name">Project Name:</label><br>
         <input type="text" id="project_name" name="project_name" required><br><br>
 
         <label for="user_name">User Name:</label><br>
         <input type="text" id="user_name" name="user_name" required><br><br>
 
-        <label for="directory">Directory:</label><br>
+        <label for="directory">Directory (e.g., test/kakao1):</label><br>
         <input type="text" id="directory" name="directory" required><br><br>
-        
-        <label for="data">Data (JSON format):</label><br>
-        <textarea id="data" name="data" rows="10" cols="50" required>{"level":10,"score":10007,"stage":5}</textarea><br><br>
 
-        <button type="submit">Save to GitHub</button>
+        <label for="file">Choose a file:</label><br>
+        <input type="file" id="file" name="file" required><br><br>
+        
+        <button type="submit">Upload to GitHub</button>
     </form>
 </body>
 </html>
