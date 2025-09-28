@@ -192,7 +192,7 @@ function redo() {
 
 function handleDownloadBtnClick() {
     originalSizeDisplay.textContent = `${originalWidth} × ${originalHeight}`;
-    const scale = parseInt(scaleFactorInput.value) || 1;
+    const scale = parseInt(scaleFactorInput.value);
     newSizeDisplay.textContent = `${originalWidth * scale} × ${originalHeight * scale}`;
     downloadModal.style.display = 'block';
 }
