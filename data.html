@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>画像編集サイト</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="toolbar">
+      <button id="undoBtn">元に戻す</button>
+      <button id="redoBtn">やり直し</button>
+      <button id="moveToolBtn">移動</button>
+      <button id="penToolBtn">ペン</button>
+      <button id="fillToolBtn">塗りつぶし</button>
+      <button id="downloadBtn">ダウンロード</button>
+    </div>
+
+    <input type="file" id="imageInput" accept="image/*" multiple>
+    <input type="color" id="colorInput" value="#ff0000">
+
+    <canvas id="myCanvas"></canvas>
+
+    <div id="downloadModal" class="modal" style="display: none;">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>画像のダウンロード設定</h2>
+        <p>ダウンロードする画像のサイズを指定してください。</p>
+        <div class="size-input-container">
+          <span id="originalSizeDisplay"></span>
+          <span class="multiplier">×</span>
+          <input type="number" id="scaleFactorInput" value="1" min="1">
+        </div>
+        <p>新しいサイズ：<span id="newSizeDisplay"></span></p>
+        <button id="confirmDownloadBtn">確定</button>
+      </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
